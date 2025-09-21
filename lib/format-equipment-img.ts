@@ -1,29 +1,20 @@
-interface EquipmentStyles {
-  [key: string]: React.CSSProperties;
-}
+'use strict'
 
-const EQUIPMENT_WITH_CUSTOM_STYLES: EquipmentStyles = {
+var EQUIPMENT_WITH_CUSTOM_STYLES = {
   weapon_special_critical: {
     marginLeft: '-12px',
-    marginTop: '12px',
-  },
-};
+    marginTop: '12px'
+  }
+}
 
-export default function formatEquipmentImg(
-  equipment: string | undefined,
-  img: { style?: React.CSSProperties }
-): string | undefined {
+module.exports = function (equipment, img) {
   if (!equipment || equipment.indexOf('base_0') > -1) {
-    return;
+    return
   }
 
   if (equipment in EQUIPMENT_WITH_CUSTOM_STYLES) {
-    if (img.style) {
-      Object.assign(img.style, EQUIPMENT_WITH_CUSTOM_STYLES[equipment]);
-    } else {
-      img.style = { ...EQUIPMENT_WITH_CUSTOM_STYLES[equipment] };
-    }
+    Object.assign(img.style, EQUIPMENT_WITH_CUSTOM_STYLES[equipment])
   }
 
-  return equipment;
+  return equipment
 }

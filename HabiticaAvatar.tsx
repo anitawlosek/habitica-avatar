@@ -1,73 +1,73 @@
-import React, { useMemo } from 'react';
-import Layer, { LayerConfig } from './Layer';
-import CHARACTER_SPRITE_NODES from './lib/character-sprites-config';
-import findS3Src from './lib/find-s3-src';
+'use strict'
 
-export interface HabiticaAvatarProps {
-  user: any;
-  ignore?: Record<string, boolean>;
-  forceEquipment?: boolean;
-  forceCostume?: boolean;
-  forceImageMode?: boolean;
-  forceClassMode?: boolean;
-  containerStyle?: React.CSSProperties;
-}
+var findS3Src = require('./lib/find-s3-src')
+var addLayer = require('./lib/add-layer')
+var isHabitica = require('./lib/is-habitica')
+var Habitica = require('habitica')
 
-const HabiticaAvatar: React.FC<HabiticaAvatarProps> = ({
-  user,
-  ignore = {},
-  forceEquipment,
-  forceCostume,
-  forceImageMode,
-  forceClassMode,
-  containerStyle = {},
-}) => {
-  const appearance = user.preferences;
-  const useClass = !forceImageMode && (typeof window !== 'undefined' && window.location && window.location.host === 'habitica.com' || forceClassMode);
+var api = new Habitica()
 
-  const avatarContainerStyle: React.CSSProperties = {
-    height: '147px',
-    width: '140px',
-    position: 'relative',
-    boxSizing: 'border-box',
-    imageRendering: 'pixelated',
-    ...( (!user.items.currentMount || ignore.mount) ? { paddingTop: '24.5px' } : {} ),
-    ...containerStyle,
-  };
+var CHARACTER_SPRITE_NODES = require('./lib/character-sprites-config')
 
-  if (appearance.background && !ignore.background && useClass) {
-    avatarContainerStyle.background = undefined;
-  } else if (appearance.background && !ignore.background) {
-    avatarContainerStyle.backgroundImage = `url("${findS3Src('background_' + appearance.background)}")`;
+function habiticaAvatar (options) {
+  var user = options.user
+  var container = options.container
+  var ignore = options.ignore || {}
+  var appearance = user.preferences
+  var useClassMode = !options.forceImageMode && Boolean(isHabitica() || options.forceClassMode)
+
+  var avatarContainer = document.createElement('div')
+  var characterSprites = document.createElement('div')
+
+  avatarContainer.style.height = '147px'
+  avatarContainer.style.width = '140px'
+  avatarContainer.style.position = 'relative'
+  avatarContainer.style.boxSizing = 'border-box'
+  avatarContainer.style.imageRendering = 'pixelated'
+
+  if (!user.items.currentMount || ignore.mount) {
+    avatarContainer.style.paddingTop = '24.5px'
   }
 
-  const characterSpritesStyle: React.CSSProperties = {
-    margin: '0 auto 0 24px',
-    width: '90px',
-    height: '90px',
-  };
+  if (appearance.background && !ignore.background) {
+    if (useClassMode) {
+      avatarContainer.classList.add('background_' + appearance.background)
+    } else {
+      avatarContainer.style.backgroundImage = 'url("' + findS3Src('background_' + appearance.background) + '")'
+    }
+  }
 
-  const layers = useMemo(() =>
-    (CHARACTER_SPRITE_NODES as LayerConfig[]).map(config =>
-      <Layer
-        key={config.name}
-        config={config}
-        user={user}
-        ignore={ignore}
-        forceEquipment={forceEquipment}
-        forceCostume={forceCostume}
-        useClassMode={!!useClass}
-      />
-    ), [user, ignore, !!forceEquipment, !!forceCostume, useClass]
-  );
+  characterSprites.style.margin = '0 auto 0 24px'
+  characterSprites.style.width = '90px'
+  characterSprites.style.height = '90px'
 
-  return (
-    <div style={avatarContainerStyle} className={useClass && appearance.background && !ignore.background ? `background_${appearance.background}` : undefined}>
-      <div style={characterSpritesStyle}>
-        {layers}
-      </div>
-    </div>
-  );
-};
+  CHARACTER_SPRITE_NODES.forEach(addLayer(characterSprites, {
+    user: options.user,
+    ignore: options.ignore,
+    forceEquipment: options.forceEquipment,
+    forceCostume: options.forceCostume,
+    useClassMode: useClassMode
+  }))
 
-export default HabiticaAvatar;
+  avatarContainer.appendChild(characterSprites)
+
+  if (typeof container === 'string') {
+    container = document.querySelector(container)
+  }
+
+  if (container) {
+    container.appendChild(avatarContainer)
+  }
+
+  return avatarContainer
+}
+
+habiticaAvatar.fromUserId = function (userId, options) {
+  return api.get('/members/' + userId).then(function (response) {
+    var config = Object.assign({}, options, { user: response.data })
+
+    return habiticaAvatar(config)
+  })
+}
+
+module.exports = habiticaAvatar
