@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "data": {
+        "preferences": {
+            "hair": {},
+            "size": "slim",
+            "skin": "f5a76e",
+            "shirt": "blue",
+            "chair": "none",
+            "costume": false,
+            "sleep": false,
+            "background": "none"            
+        },
+    "items": {
+      "gear": {
+        "equipped": {},
+        "costume": {}
+      }
+    },
+    "stats": {
+      "buffs": {},
+      "class": "warrior"
+    }
+  }
+}
