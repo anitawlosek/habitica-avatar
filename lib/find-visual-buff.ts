@@ -1,28 +1,33 @@
-'use strict'
+interface User {
+  stats: {
+    buffs: Record<string, boolean>;
+    class: string;
+  };
+}
 
-var VISUAL_BUFFS = {
+const VISUAL_BUFFS: Record<string, string> = {
   snowball: 'snowman',
   spookySparkles: 'ghost',
   shinySeed: 'avatar_floral',
-  seafoam: 'seafoam_star'
-}
+  seafoam: 'seafoam_star',
+};
 
-module.exports = function findVisualBuff (user) {
-  var buffKey, buff
+export default function findVisualBuff(user: User): string | undefined {
+  let buffKey: string | undefined;
+  let buff: string | undefined;
 
-  Object.keys(VISUAL_BUFFS).forEach(function (key) {
+  for (const key of Object.keys(VISUAL_BUFFS)) {
     if (user.stats.buffs[key]) {
-      buffKey = key
-    }
-  })
-
-  if (buffKey) {
-    buff = VISUAL_BUFFS[buffKey]
-
-    if (buffKey === 'shinySeed') {
-      buff = buff + '_' + user.stats.class
+      buffKey = key;
     }
   }
 
-  return buff
+  if (buffKey) {
+    buff = VISUAL_BUFFS[buffKey];
+    if (buffKey === 'shinySeed') {
+      buff = buff + '_' + user.stats.class;
+    }
+  }
+
+  return buff;
 }
