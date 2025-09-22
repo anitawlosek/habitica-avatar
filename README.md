@@ -11,8 +11,8 @@ This version rewrites the avatar rendering logic using React components and Type
 npm install --save habitica-avatar
 ```
 
-```js
-import HabiticaAvatar from 'habitica-avatar';
+```tsx
+import { HabiticaAvatar } from 'habitica-avatar';
 
 <HabiticaAvatar user={userObject} />
 ```
@@ -21,12 +21,12 @@ import HabiticaAvatar from 'habitica-avatar';
 
 ### Ignore
 
-You can ignore properties, causing them to not render by passing an ignore object.
+You can ignore properties, causing them to not render by passing an ignore object as a prop.
 
-```js
-habiticaAvatar({
-  user: user,
-  ignore: {
+```tsx
+<HabiticaAvatar
+  user={user}
+  ignore={{
     background: true,
     visualBuff: true,
     mount: true,
@@ -44,30 +44,24 @@ habiticaAvatar({
     sleep: true,
     weapon: true,
     pet: true
-  }
-})
+  }}
+/>
 ```
 
 ### Force Costume
 
-By default, the costume will render if the user has the costume feature turned on. You can force the costume to be shown with the `forceCostume` option.
+By default, the costume will render if the user has the costume feature turned on. You can force the costume to be shown with the `forceCostume` prop.
 
-```js
-habiticaAvatar({
-  user: user,
-  forceCostume: true
-})
+```tsx
+<HabiticaAvatar user={user} forceCostume />
 ```
 
 ### Force Equipment
 
-By default, the equipment will render if the user has the costume feature turned off. You can force the equipment to be shown with the `forceEquipment` option.
+By default, the equipment will render if the user has the costume feature turned off. You can force the equipment to be shown with the `forceEquipment` prop.
 
-```js
-habiticaAvatar({
-  user: user,
-  forceEquipment: true
-})
+```tsx
+<HabiticaAvatar user={user} forceEquipment />
 ```
 
 ## Testing
