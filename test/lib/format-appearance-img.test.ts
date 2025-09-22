@@ -1,123 +1,118 @@
-'use strict'
-/* eslint-disable no-unused-expressions */
 
-var formatAppearance = require('../../lib/format-appearance-img')
+import { describe, it, expect } from 'vitest';
+import formatAppearance from '../../lib/format-appearance-img';
 
-describe('formatAppearance', function () {
-  it('returns the name from the appearance object', function () {
-    var name = formatAppearance('foo', {
+describe('formatAppearance', () => {
+  it('returns the name from the appearance object', () => {
+    const name = formatAppearance('foo', {
       appearance: {
-        foo: 'bar'
-      }
-    })
+        foo: 'bar',
+        hair: {},
+      },
+    });
+    expect(name).toBe('bar');
+  });
 
-    expect(name).to.equal('bar')
-  })
-
-  it('accounts for sleeping in inn when rendering skin', function () {
-    var name = formatAppearance('skin', {
+  it('accounts for sleeping in inn when rendering skin', () => {
+    const name = formatAppearance('skin', {
       appearance: {
         sleep: true,
-        skin: 'bar'
-      }
-    })
+        skin: 'bar',
+        hair: {},
+      },
+    });
+    expect(name).toBe('bar_sleep');
+  });
 
-    expect(name).to.equal('bar_sleep')
-  })
-
-  it('does not change skin if ignore sleep is used', function () {
-    var name = formatAppearance('skin', {
+  it('does not change skin if ignore sleep is used', () => {
+    const name = formatAppearance('skin', {
       ignore: { sleep: true },
       appearance: {
         sleep: true,
-        skin: 'bar'
-      }
-    })
+        skin: 'bar',
+        hair: {},
+      },
+    });
+    expect(name).toBe('bar');
+  });
 
-    expect(name).to.equal('bar')
-  })
-
-  it('uses zzz key for sleep node', function () {
-    var name = formatAppearance('sleep', {
+  it('uses zzz key for sleep node', () => {
+    const name = formatAppearance('sleep', {
       appearance: {
-        sleep: true
-      }
-    })
+        sleep: true,
+        hair: {},
+      },
+    });
+    expect(name).toBe('zzz');
+  });
 
-    expect(name).to.equal('zzz')
-  })
-
-  it('skips sleep node if not asleep', function () {
-    var name = formatAppearance('sleep', {
+  it('skips sleep node if not asleep', () => {
+    const name = formatAppearance('sleep', {
       appearance: {
-        sleep: false
-      }
-    })
+        sleep: false,
+        hair: {},
+      },
+    });
+    expect(name).toBeUndefined();
+  });
 
-    expect(name).to.not.exist
-  })
-
-  it('returns nothing if hair subproperty does not exist', function () {
-    var name = formatAppearance('hair', {
+  it('returns nothing if hair subproperty does not exist', () => {
+    const name = formatAppearance('hair', {
       subName: 'flower',
       appearance: {
         hair: {
-          flower: 0
-        }
-      }
-    })
+          flower: 0,
+        },
+      },
+    });
+    expect(name).toBeUndefined();
+  });
 
-    expect(name).to.not.exist
-  })
-
-  it('returns nothing if hair subproperty is 0', function () {
-    var name = formatAppearance('hair', {
+  it('returns nothing if hair subproperty is 0', () => {
+    const name = formatAppearance('hair', {
       subName: 'flower',
       appearance: {
         hair: {
-          flower: '0'
-        }
-      }
-    })
+          flower: '0',
+        },
+      },
+    });
+    expect(name).toBeUndefined();
+  });
 
-    expect(name).to.not.exist
-  })
-
-  it('returns hair value with hair color', function () {
-    var name = formatAppearance('hair', {
+  it('returns hair value with hair color', () => {
+    const name = formatAppearance('hair', {
       subName: 'bangs',
       appearance: {
         hair: {
           bangs: 1,
-          color: 'white'
-        }
-      }
-    })
+          color: 'white',
+        },
+      },
+    });
+    expect(name).toBe('1_white');
+  });
 
-    expect(name).to.equal('1_white')
-  })
-
-  it('returns flower without hair color', function () {
-    var name = formatAppearance('hair', {
+  it('returns flower without hair color', () => {
+    const name = formatAppearance('hair', {
       subName: 'flower',
       appearance: {
         hair: {
           flower: 1,
-          color: 'white'
-        }
-      }
-    })
+          color: 'white',
+        },
+      },
+    });
+    expect(name).toBe('1');
+  });
 
-    expect(name).to.equal('1')
-  })
-
-  it('returns nothing if value is none', function () {
-    var name = formatAppearance('chair', {
+  it('returns nothing if value is none', () => {
+    const name = formatAppearance('chair', {
       appearance: {
-        chair: 'none'
-      }
-    })
-
-    expect(name).to.not.exist
-  })
-})
+        chair: 'none',
+        hair: {},
+      },
+    });
+    expect(name).toBeUndefined();
+  });
+});

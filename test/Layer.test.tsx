@@ -1,66 +1,69 @@
-'use strict'
-/* eslint-disable no-unused-expressions */
+// @vitest-environment jsdom
+import React from 'react';
+import { render } from '@testing-library/react';
+import Layer from '../Layer';
+import { describe, it, expect, vi } from 'vitest';
 
-var addLayer = require('../../lib/add-layer')
-
-describe('addLayer', function () {
-  beforeEach(function () {
-    this.user = {
-      items: {
-        currentMount: 'Wolf-Base',
-        gear: {}
+describe('Layer React', () => {
+  const baseUser = {
+    items: {
+      currentMount: 'Wolf-Base',
+      gear: {
+        costume: {},
+        equipped: {},
       },
-      preferences: {},
-      stats: {
-        buffs: {},
-        class: 'wizard'
-      }
-    }
-    this.characterSpritesNode = makeFakeDomElement()
-  })
+    },
+    preferences: {
+      size: 'broad',
+      costume: false,
+    },
+    stats: {
+      buffs: {},
+      class: 'wizard',
+    },
+  };
 
-  it('returns a function', function () {
-    var func = addLayer(this.characterSpritesNode, {
-      user: this.user
-    })
-
-    expect(func).to.be.an('function')
-  })
-
-  it('can ignore keys', function () {
-    var characterSpritesWithMount = makeFakeDomElement()
-    var characterSpritesWithoutMount = makeFakeDomElement()
-    var funcWithMount = addLayer(characterSpritesWithMount, {
-      user: this.user
-    })
-    var funcWithoutMount = addLayer(characterSpritesWithoutMount, {
-      user: this.user,
-      ignore: {
-        mount: true
-      }
-    })
-
-    funcWithMount({
+  it('renders an img for a valid config', () => {
+    const config = {
       name: 'mount',
-      type: 'pet',
-      style: {
-        marginTop: '18px'
-      },
+      itemsKey: 'currentMount',
       prefix: 'Mount_Head_',
-      itemsKey: 'currentMount'
-    })
+      style: { marginTop: '18px' },
+    };
+    const { container } = render(<Layer config={config} user={baseUser} />);
+    const img = container.querySelector('img');
+    expect(img).toBeTruthy();
+    expect(img?.style.marginTop).toBe('18px');
+    expect(img?.src).toContain('Mount_Head_Wolf-Base');
+  });
 
-    expect(characterSpritesWithMount.appendChild).to.be.calledOnce
-
-    funcWithoutMount({
+  it('does not render if ignore key is set', () => {
+    const config = {
       name: 'mount',
-      type: 'pet',
-      style: {
-        marginTop: '18px'
-      },
+      itemsKey: 'currentMount',
+    };
+    const { container } = render(<Layer config={config} user={baseUser} ignore={{ mount: true }} />);
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('does not render if no s3Key', () => {
+    const config = {
+      name: 'mount',
+      itemsKey: 'notExistingKey',
+    };
+    const { container } = render(<Layer config={config} user={baseUser} />);
+    expect(container.firstChild).toBeNull();
+  });
+
+  it('renders a div with className in class mode', () => {
+    const config = {
+      name: 'mount',
+      itemsKey: 'currentMount',
       prefix: 'Mount_Head_',
-      itemsKey: 'currentMount'
-    })
-    expect(characterSpritesWithoutMount.appendChild).to.not.be.called
-  })
-})
+    };
+    const { container } = render(<Layer config={config} user={baseUser} useClassMode />);
+    const div = container.querySelector('div');
+    expect(div).toBeTruthy();
+    expect(div?.className).toContain('Mount_Head_Wolf-Base');
+  });
+});

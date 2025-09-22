@@ -16,15 +16,15 @@
     "server": "http-server -p3003 docs",
     "start": "npm run server",
     "pretest": "npm run lint",
-    "test": "mocha test --recursive",
+    "test": "vitest run",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "keywords": [],
   "author": "Blade Barringer <blade@crookedneighbor.com>",
-    "contributors": [
-      "Anita Wlosek <anitawlosek@gmail.com>"
-    ],
+  "contributors": [
+    "Anita Wlosek <anitawlosek@gmail.com>"
+  ],
   "license": "ISC",
   "repository": {
     "type": "git",
@@ -40,22 +40,24 @@
     "@storybook/addon-docs": "^9.1.7",
     "@storybook/addon-vitest": "^9.1.7",
     "@storybook/react-vite": "^9.1.7",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
+    "@vitest/browser": "^3.2.4",
+    "@vitest/coverage-v8": "^3.2.4",
     "browserify": "^16.2.3",
     "chai": "^4.2.0",
     "http-server": "^0.11.1",
-    "mocha": "^6.1.4",
+    "jsdom": "^27.0.0",
+    "playwright": "^1.55.0",
     "sinon": "^7.3.2",
     "sinon-chai": "^3.3.0",
     "snazzy": "^8.0.0",
     "standard": "^12.0.1",
     "storybook": "^9.1.7",
     "typescript": "^5.9.2",
-    "vitest": "^3.2.4",
-    "@vitest/browser": "^3.2.4",
-    "playwright": "^1.55.0",
-    "@vitest/coverage-v8": "^3.2.4"
+    "vitest": "^3.2.4"
   },
   "standard": {
     "globals": [

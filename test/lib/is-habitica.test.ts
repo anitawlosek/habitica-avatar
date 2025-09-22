@@ -1,30 +1,28 @@
-'use strict'
-/* eslint-disable no-unused-expressions */
+// @vitest-environment jsdom
 
-var isHabitica = require('../../lib/is-habitica')
+import { describe, it, expect } from 'vitest';
+import isHabitica from '../../lib/is-habitica';
 
-describe('isHabitica', function () {
-  it('returns true if hostname is habitica.com', function () {
-    global.location = {
-      host: 'habitica.com'
-    }
+describe('isHabitica', () => {
+  function setWindowHost(host: string) {
+    // @ts-expect-error
+    delete window.location;
+    // @ts-expect-error
+    window.location = { host };
+  }
 
-    expect(isHabitica()).to.equal(true)
-  })
+  it('returns true if hostname is habitica.com', () => {
+    setWindowHost('habitica.com');
+    expect(isHabitica()).toBe(true);
+  });
 
-  it('returns false if hostname is not habitica.com', function () {
-    global.location = {
-      host: 'another-host.com'
-    }
+  it('returns false if hostname is not habitica.com', () => {
+    setWindowHost('another-host.com');
+    expect(isHabitica()).toBe(false);
+  });
 
-    expect(isHabitica()).to.equal(false)
-  })
-
-  it('returns false fo subdomain of habitica.com', function () {
-    global.location = {
-      host: 'subdomain.habitica.com'
-    }
-
-    expect(isHabitica()).to.equal(false)
-  })
-})
+  it('returns false fo subdomain of habitica.com', () => {
+    setWindowHost('subdomain.habitica.com');
+    expect(isHabitica()).toBe(false);
+  });
+});

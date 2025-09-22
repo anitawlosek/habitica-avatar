@@ -1,14 +1,13 @@
-'use strict'
-/* eslint-disable no-unused-expressions */
 
-var findS3Src = require('../../lib/find-s3-src')
+import { describe, it, expect } from 'vitest';
+import findS3Src from '../../lib/find-s3-src';
 
-describe('findS3Src', function () {
-  it('returns the value with the s3 prefix and png suffix', function () {
-    expect(findS3Src('foo')).to.equal('https://s3.amazonaws.com/habitica-assets/mobileApp/images/foo.png')
-  })
+describe('findS3Src', () => {
+  it('returns the value with the s3 prefix and png suffix', () => {
+    expect(findS3Src('foo')).toBe('https://s3.amazonaws.com/habitica-assets/mobileApp/images/foo.png');
+  });
 
-  it('returns gif extension for special keys', function () {
+  it('returns gif extension for special keys', () => {
     [
       'broad_armor_special_0',
       'slim_armor_special_0',
@@ -19,9 +18,9 @@ describe('findS3Src', function () {
       'shield_special_0',
       'weapon_special_0',
       'weapon_special_critical',
-      'Pet-Wolf-Cerberus'
+      'Pet-Wolf-Cerberus',
     ].forEach((key) => {
-      expect(findS3Src(key)).to.equal(`https://s3.amazonaws.com/habitica-assets/mobileApp/images/${key}.gif`)
-    })
-  })
-})
+      expect(findS3Src(key)).toBe(`https://s3.amazonaws.com/habitica-assets/mobileApp/images/${key}.gif`);
+    });
+  });
+});

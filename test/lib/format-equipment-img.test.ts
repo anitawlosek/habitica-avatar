@@ -1,55 +1,52 @@
-'use strict'
-/* eslint-disable no-unused-expressions */
 
-var formatEquipment = require('../../lib/format-equipment-img')
+import { describe, it, expect } from 'vitest';
+import formatEquipment from '../../lib/format-equipment-img';
+import { background } from 'storybook/internal/theming';
 
-describe('formatEquipment', function () {
-  it('returns the equipment name', function () {
-    var name = formatEquipment('name', {})
+describe('formatEquipment', () => {
+  it('returns the equipment name', () => {
+    const name = formatEquipment('name', { style: {} });
+    expect(name).toBe('name');
+  });
 
-    expect(name).to.equal('name')
-  })
+  it('returns nothing if name includes "base_0"', () => {
+    const name = formatEquipment('warrior_base_0', { style: {} });
+    expect(name).toBeUndefined();
+  });
 
-  it('returns nothing if name includes "base_0"', function () {
-    var name = formatEquipment('warrior_base_0', {})
+  it('returns nothing if equipment does not exist', () => {
+    let empty: any;
+    const name = formatEquipment(empty, { style: {} });
+    expect(name).toBeUndefined();
+  });
 
-    expect(name).to.not.exist
-  })
-
-  it('returns nothing if equipment does not exist', function () {
-    var empty
-    var name = formatEquipment(empty, {})
-
-    expect(name).to.not.exist
-  })
-
-  it('assigns extra styles to image if item is weapon_special_critical', function () {
-    var img = {
+  it('assigns extra styles to image if item is weapon_special_critical', () => {
+    const img = {
       style: {
-        foo: 'bar'
-      }
-    }
+        color: 'red',
+      },
+    };
 
-    formatEquipment('weapon_special_critical', img)
+    formatEquipment('weapon_special_critical', img);
 
-    expect(img.style).to.deep.equal({
-      foo: 'bar',
+    expect(img.style).toEqual({
+      color: 'red',
       marginLeft: '-12px',
-      marginTop: '12px'
-    })
-  })
+      marginTop: '12px',
+    });
+  });
 
-  it('does not assign extra styles to image when no special styles are specififed', function () {
-    var img = {
+  it('does not assign extra styles to image when no special styles are specified', () => {
+    const img = {
       style: {
-        foo: 'bar'
-      }
-    }
+        background: 'black',
+      },
+    };
 
-    formatEquipment('foo', img)
-
-    expect(img.style).to.deep.equal({
-      foo: 'bar'
-    })
-  })
-})
+    formatEquipment('foo', img);
+    
+    expect(img.style).toEqual({
+      background: 'black',
+    });
+  });
+});

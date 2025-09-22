@@ -1,15 +1,9 @@
 import { User } from "../types/User";
-
-interface Appearance {
-  hair: User['preferences']['hair'];
-  skin?: string;
-  sleep?: boolean;
-  [key: string]: any;
-}
+import { isDefined } from "./helpers";
 
 interface Config {
   subName?: string;
-  appearance: Appearance;
+  appearance: User['preferences'];
   ignore?: Record<string, boolean>;
 }
 
@@ -19,7 +13,7 @@ export default function formatAppearanceImg(name: string, config: Config): strin
   const appearance = config.appearance;
   const ignore = config.ignore || {};
 
-  if (name === 'hair') {
+  if (name === 'hair' && isDefined(appearance.hair)) {
     if (!appearance.hair[subName!] || appearance.hair[subName!] === '0') {
       return; // skip adding this hair bit, because it does not exist
     }
