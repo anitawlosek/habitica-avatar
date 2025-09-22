@@ -1,10 +1,7 @@
-interface Hair {
-  [key: string]: string | undefined;
-  color?: string;
-}
+import { User } from "../types/User";
 
 interface Appearance {
-  hair: Hair;
+  hair: User['preferences']['hair'];
   skin?: string;
   sleep?: boolean;
   [key: string]: any;
@@ -17,7 +14,7 @@ interface Config {
 }
 
 export default function formatAppearanceImg(name: string, config: Config): string | undefined {
-  let s3Key: string | undefined;
+  let s3Key: string | number | undefined;
   const subName = config.subName;
   const appearance = config.appearance;
   const ignore = config.ignore || {};

@@ -53,9 +53,9 @@ const Layer: React.FC<LayerProps> = ({ config, user, ignore = {}, useClassMode, 
     }
   } else if (config.type === 'appearance') {
     s3Key = formatAppearanceImg(config.name, {
-      ignore: ignore,
+      ignore,
       subName: config.subName,
-      appearance: appearance,
+      appearance,
     });
   } else if (config.itemsKey) {
     s3Key = user.items[config.itemsKey];

@@ -47,8 +47,6 @@ const HabiticaAvatar: React.FC<HabiticaAvatarProps> = ({
       avatarStyle.background = undefined;
       avatarStyle.backgroundImage = undefined;
       avatarStyle.backgroundColor = undefined;
-  // CSS class for background in class mode
-  // The user should add the appropriate class to the parent container
     } else {
       avatarStyle.backgroundImage = `url("${findS3Src('background_' + appearance.background)}")`;
     }
@@ -59,7 +57,6 @@ const HabiticaAvatar: React.FC<HabiticaAvatarProps> = ({
     margin: '0 auto 0 24px',
     width: '90px',
     height: '90px',
-    position: 'relative',
   };
 
   return (
@@ -76,7 +73,7 @@ const HabiticaAvatar: React.FC<HabiticaAvatarProps> = ({
             forceCostume={forceCostume}
           />
         ))}
-      </div>
+   </div>
     </div>
   );
 };
