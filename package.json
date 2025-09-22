@@ -1,17 +1,17 @@
 {
   "name": "habitica-avatar-reactjs",
+  "type": "module",
   "version": "0.2.0",
   "description": "A module for constructing the Habitica avatar.",
-  "main": "HabiticaAvatar.tsx",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "HabiticaAvatar.tsx",
-    "Layer.tsx",
-    "lib/*.ts",
-    "types/*.ts"
+    "dist",
+    "lib",
+    "types"
   ],
   "scripts": {
-    "build": "browserify -s HabiticaAvatar ./HabiticaAvatar.tsx > dist/HabiticaAvatar.js",
-    "build:demo": "browserify docs/src/index.js > docs/script.js && browserify docs/src/avatar.js > docs/avatar-script.js",
+    "build": "vite build",
     "lint": "standard --verbose | snazzy",
     "server": "http-server -p3003 docs",
     "start": "npm run server",
@@ -44,19 +44,16 @@
     "@testing-library/react": "^16.3.0",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.3",
     "@vitest/browser": "^3.2.4",
     "@vitest/coverage-v8": "^3.2.4",
-    "browserify": "^16.2.3",
-    "chai": "^4.2.0",
     "http-server": "^0.11.1",
     "jsdom": "^27.0.0",
-    "playwright": "^1.55.0",
-    "sinon": "^7.3.2",
-    "sinon-chai": "^3.3.0",
     "snazzy": "^8.0.0",
     "standard": "^12.0.1",
     "storybook": "^9.1.7",
     "typescript": "^5.9.2",
+    "vite": "^5.2.0",
     "vitest": "^3.2.4"
   },
   "standard": {
