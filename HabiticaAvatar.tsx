@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { User } from './types/User';
 import isHabitica from './lib/is-habitica';
 import findS3Src from './lib/find-s3-src';

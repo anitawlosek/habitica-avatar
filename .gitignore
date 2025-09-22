@@ -59,3 +59,6 @@ typings/
 
 # built files
 dist
+
+*storybook.log
+storybook-static

@@ -3,7 +3,7 @@ export interface User {
     costume?: boolean;
     size?: string;
     hair: {
-      [key: string]: string | undefined;
+      [key: string]: string | number | undefined;
       color?: string;
     };
     [key: string]: any;
