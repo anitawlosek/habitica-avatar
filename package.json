@@ -1,14 +1,16 @@
 {
-  "name": "habitica-avatar",
+  "name": "habitica-avatar-reactjs",
   "version": "0.2.0",
   "description": "A module for constructing the Habitica avatar.",
-  "main": "habitica-avatar.js",
+  "main": "HabiticaAvatar.tsx",
   "files": [
-    "habitica-avatar.js",
-    "lib/*.js"
+    "HabiticaAvatar.tsx",
+    "Layer.tsx",
+    "lib/*.ts",
+    "types/*.ts"
   ],
   "scripts": {
-    "build": "browserify -s habiticaAvatar ./habitica-avatar.js > dist/habitica-avatar.js",
+    "build": "browserify -s HabiticaAvatar ./HabiticaAvatar.tsx > dist/HabiticaAvatar.js",
     "build:demo": "browserify docs/src/index.js > docs/script.js && browserify docs/src/avatar.js > docs/avatar-script.js",
     "lint": "standard --verbose | snazzy",
     "server": "http-server -p3003 docs",
@@ -20,15 +22,18 @@
   },
   "keywords": [],
   "author": "Blade Barringer <blade@crookedneighbor.com>",
+    "contributors": [
+      "Anita Wlosek <anitawlosek@gmail.com>"
+    ],
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/crookedneighbor/habitica-avatar.git"
+    "url": "git+ssh://git@github.com/anitawlosek/habitica-avatar.git"
   },
   "bugs": {
-    "url": "https://github.com/crookedneighbor/habitica-avatar/issues"
+    "url": "https://github.com/anitawlosek/habitica-avatar/issues"
   },
-  "homepage": "https://github.com/crookedneighbor/habitica-avatar#readme",
+  "homepage": "https://github.com/anitawlosek/habitica-avatar#readme",
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.1",
     "@storybook/addon-a11y": "^9.1.7",
