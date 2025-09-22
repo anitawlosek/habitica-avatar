@@ -31,6 +31,8 @@
     "habitica": "^4.0.0"
   },
   "devDependencies": {
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
     "browserify": "^16.2.3",
     "chai": "^4.2.0",
     "http-server": "^0.11.1",
@@ -38,7 +40,8 @@
     "sinon": "^7.3.2",
     "sinon-chai": "^3.3.0",
     "snazzy": "^8.0.0",
-    "standard": "^12.0.1"
+    "standard": "^12.0.1",
+    "typescript": "^5.9.2"
   },
   "standard": {
     "globals": [

@@ -1,5 +1,3 @@
-'use strict'
-
-module.exports = function () {
-  return global.location.host === 'habitica.com'
+export default function isHabitica(): boolean {
+  return typeof window !== 'undefined' && window.location.host === 'habitica.com';
 }

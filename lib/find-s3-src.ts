@@ -1,8 +1,6 @@
-'use strict'
+const S3 = 'https://s3.amazonaws.com/habitica-assets/mobileApp/images/';
 
-var S3 = 'https://s3.amazonaws.com/habitica-assets/mobileApp/images/'
-
-var GIFS = [
+const GIFS: Record<string, boolean> = [
   'broad_armor_special_0',
   'slim_armor_special_0',
   'broad_armor_special_1',
@@ -12,18 +10,18 @@ var GIFS = [
   'shield_special_0',
   'weapon_special_0',
   'weapon_special_critical',
-  'Pet-Wolf-Cerberus'
-].reduce(function (obj, value) {
-  obj[value] = true
-  return obj
-}, {})
+  'Pet-Wolf-Cerberus',
+].reduce((obj, value) => {
+  obj[value] = true;
+  
+  return obj;
+}, {} as Record<string, boolean>);
 
-module.exports = function (value) {
-  var ext = 'png'
+export default function findS3Src(value: string): string {
+  let ext = 'png';
 
-  if (value in GIFS) {
-    ext = 'gif'
+  if (GIFS[value]) {
+    ext = 'gif';
   }
-
-  return S3 + value + '.' + ext
+  return S3 + value + '.' + ext;
 }
