@@ -11,6 +11,9 @@ const GIFS: Record<string, boolean> = [
   'weapon_special_0',
   'weapon_special_critical',
   'Pet-Wolf-Cerberus',
+  'background_airship',
+  'background_clocktower',
+  'background_steamworks',
 ].reduce((obj, value) => {
   obj[value] = true;
   
