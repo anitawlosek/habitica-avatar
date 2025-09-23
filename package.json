@@ -1,5 +1,5 @@
 {
-  "name": "habitica-avatar-reactjs",
+  "name": "habitica-avatar-react",
   "type": "module",
   "version": "0.2.0",
   "description": "A module for constructing the Habitica avatar.",

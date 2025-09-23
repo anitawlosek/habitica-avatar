@@ -1,4 +1,4 @@
-# habitica-avatar
+# habitica-avatar-react
 
 A React-based fork of the original Habitica avatar library.
 This version rewrites the avatar rendering logic using React components and TypeScript, making it easier to use in modern React projects.
@@ -8,11 +8,11 @@ This version rewrites the avatar rendering logic using React components and Type
 ### npm
 
 ```sh
-npm install --save habitica-avatar
+npm install --save habitica-avatar-react
 ```
 
 ```tsx
-import { HabiticaAvatar } from 'habitica-avatar';
+import { HabiticaAvatar } from 'habitica-avatar-react';
 
 <HabiticaAvatar user={userObject} />
 ```
