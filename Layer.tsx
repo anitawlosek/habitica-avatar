@@ -5,19 +5,10 @@ import formatAppearanceImg from './lib/format-appearance-img';
 import findVisualBuff from './lib/find-visual-buff';
 import { User } from './types/User';
 
-interface LayerConfig {
-  name: string;
-  prefix?: string;
-  itemsKey?: string;
-  type?: string;
-  showWhenVisualBuffApplied?: boolean;
-  style?: React.CSSProperties;
-  subName?: string;
-  sizePrefix?: boolean;
-}
+import { CharacterSpriteConfig } from './lib/character-sprites-config';
 
 interface LayerProps {
-  config: LayerConfig;
+  config: CharacterSpriteConfig;
   user: User;
   ignore?: Record<string, boolean>;
   useClassMode?: boolean;
@@ -41,28 +32,37 @@ const Layer: React.FC<LayerProps> = ({ config, user, ignore = {}, useClassMode, 
   let s3Key: string | undefined;
   let style: React.CSSProperties = { position: 'absolute', ...(config.style || {}) };
 
-  if (config.type === 'buff') {
-    s3Key = visualBuff;
-  } else if (config.type === 'static') {
-    s3Key = config.name;
-  } else if (config.type === 'equipment') {
-    if ((appearance.costume && !forceEquipment) || forceCostume) {
-      s3Key = formatEquipmentImg(gear.costume[config.name], { style });
-    } else {
-      s3Key = formatEquipmentImg(gear.equipped[config.name], { style });
-    }
-  } else if (config.type === 'appearance') {
-    s3Key = formatAppearanceImg(config.name, {
-      ignore,
-      subName: config.subName,
-      appearance,
-    });
-  } else if (config.itemsKey) {
-    s3Key = user.items[config.itemsKey];
+  switch (config.type) {
+    case 'buff':
+      s3Key = visualBuff;
+      break;
+    case 'static':
+      s3Key = config.name;
+      break;
+    case 'equipment':
+      if ((appearance.costume && !forceEquipment) || forceCostume) {
+        s3Key = formatEquipmentImg(gear.costume[config.name], { style });
+      } else {
+        s3Key = formatEquipmentImg(gear.equipped[config.name], { style });
+      }
+      break;
+    case 'appearance':
+      const configName = config.name as keyof User['preferences'];
+      s3Key = formatAppearanceImg(configName, {
+        ignore,
+        subName: config.subName,
+        appearance,
+      });
+      break;
+    default:
+      if (config.itemsKey) {
+        s3Key = user.items[config.itemsKey];
+      }
+      break;
   }
 
   if (!s3Key) {
-    return null;
+    return;
   }
 
   if (config.prefix) {

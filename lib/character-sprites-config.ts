@@ -1,11 +1,13 @@
+import { User } from "../types/User";
+
 export interface CharacterSpriteConfig {
   name: string;
   prefix?: string;
-  itemsKey?: string;
+  itemsKey?: keyof User['preferences'] | 'currentMount' | 'currentPet';
   type?: string;
   showWhenVisualBuffApplied?: boolean;
   style?: React.CSSProperties;
-  subName?: string;
+  subName?: keyof User['preferences']['hair'];
   sizePrefix?: boolean;
 }
 

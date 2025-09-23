@@ -1,34 +1,43 @@
-export interface User {
-  preferences: {
-    background?: string;
-    costume?: boolean;
-    size?: string;
-    hair?: {
-      base?: string | number;
-      bangs?: string | number;
-      mustache?: string | number;
-      beard?: string | number;
-      flower?: string | number;
-      color?: string;
-      [key: string]: any;
-    };
-    skin?: string;
-    sleep?: boolean;
-    [key: string]: any;
-  };
+export type User = {
   items: {
     gear: {
-      equipped: Record<string, string>;
-      costume: Record<string, string>;
+      equipped: Gear;
+      costume: Gear;
     };
-    currentMount?: string;
-    currentPet?: string;
+    currentPet: string;
+    currentMount: string;
     [key: string]: any;
   };
+  preferences: {
+    size: string;
+    hair: {
+      color: string;
+      base: number;
+      bangs: number;
+      beard: number;
+      mustache: number;
+      flower: number;
+    };
+    skin: string;
+    shirt: string;
+    chair: string;
+    costume: boolean;
+    sleep: boolean;
+    background: string;
+  };
   stats: {
-    buffs: Record<string, boolean | number>;
-    class?: string;
+    buffs: {
+      snowball: boolean;
+      spookySparkles: boolean;
+      shinySeed: boolean;
+      seafoam: boolean;
+    };
+    class: string;
     [key: string]: any;
   };
   [key: string]: any;
+}
+
+export type Gear = {
+  [key: string]: string;
 }

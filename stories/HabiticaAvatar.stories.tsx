@@ -2,11 +2,8 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import HabiticaAvatar from '../HabiticaAvatar';
 
-import user from './user.json';
-const userData = user.data;
-
-import emptyUser from './emptyUser.json';
-const emptyUserData = emptyUser.data;
+import user from './data/user.json';
+import minimalUser from './data/minimalUser.json';
 
 const meta: Meta<typeof HabiticaAvatar> = {
   title: 'HabiticaAvatar',
@@ -20,22 +17,22 @@ type Story = StoryObj<typeof HabiticaAvatar>;
 
 export const Default: Story = {
   args: {
-    user: userData,
+    user,
   },
 };
 
 export const Empty: Story = {
   args: {
-    user: emptyUserData,
+    user: minimalUser,
   },
 };
 
 export const WithCostume: Story = {
   args: {
     user: {
-      ...userData,
+      ...user,
       preferences: {
-        ...userData.preferences,
+        ...user.preferences,
         costume: true,
       },
     },
@@ -44,7 +41,7 @@ export const WithCostume: Story = {
 
 export const ForceImageMode: Story = {
   args: {
-    user: userData,
+    user,
     forceImageMode: true,
   },
 };

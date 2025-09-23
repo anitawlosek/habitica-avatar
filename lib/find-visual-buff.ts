@@ -1,6 +1,8 @@
 import { User } from "../types/User";
 
-const VISUAL_BUFFS: Record<string, string> = {
+type BuffKey = keyof User['stats']['buffs'];
+
+const VISUAL_BUFFS: Record<BuffKey, string> = {
   snowball: 'snowman',
   spookySparkles: 'ghost',
   shinySeed: 'avatar_floral',
@@ -8,12 +10,14 @@ const VISUAL_BUFFS: Record<string, string> = {
 };
 
 export default function findVisualBuff(user: User): string | undefined {
-  let buffKey: string | undefined;
+  let buffKey: BuffKey | undefined;
   let buff: string | undefined;
 
   Object.keys(VISUAL_BUFFS).forEach((key) => {
-    if (user.stats.buffs[key]) {
-      buffKey = key;
+    const buffKeyCandidate = key as BuffKey;
+    
+    if (user.stats.buffs[buffKeyCandidate]) {
+      buffKey = buffKeyCandidate;
     }
   });
 

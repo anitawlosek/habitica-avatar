@@ -1,0 +1,45 @@
+{
+    "items": {
+        "gear": {
+            "equipped": {
+                "armor": "armor_base_0",
+                "head": "head_base_0",
+                "shield": "shield_base_0",
+                "eyewear": "eyewear_base_0"
+            },
+            "costume": {
+                "armor": "armor_base_0",
+                "head": "head_base_0",
+                "shield": "shield_base_0"
+            }
+        },
+        "currentPet": "",
+        "currentMount": ""
+    },
+    "preferences": {
+        "size": "slim",
+        "hair": {
+            "color": "black",
+            "base": 0,
+            "bangs": 0,
+            "beard": 0,
+            "mustache": 0,
+            "flower": 0
+        },
+        "skin": "f5a76e",
+        "shirt": "black",
+        "chair": "none",
+        "costume": false,
+        "sleep": false,
+        "background": ""
+    },
+    "stats": {
+        "buffs": {
+            "snowball": false,
+            "spookySparkles": false,
+            "shinySeed": false,
+            "seafoam": false
+        },
+        "class": "warrior"
+    }
+}

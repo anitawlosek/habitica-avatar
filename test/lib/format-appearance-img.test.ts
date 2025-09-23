@@ -1,4 +1,5 @@
 
+// @ts-nocheck
 import { describe, it, expect } from 'vitest';
 import formatAppearance from '../../lib/format-appearance-img';
 
@@ -73,10 +74,12 @@ describe('formatAppearance', () => {
       subName: 'flower',
       appearance: {
         hair: {
-          flower: '0',
+          flower: 0,
         },
       },
     });
+console.log('Test hair flower 0, got name:', name);
+
     expect(name).toBeUndefined();
   });
 

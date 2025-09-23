@@ -25,7 +25,7 @@ const HabiticaAvatar: React.FC<HabiticaAvatarProps> = ({
   forceClassMode,
   style = {},
 }) => {
-  const appearance = user.preferences;
+  const background = user.preferences.background;
   const useClassMode = !forceImageMode && (isHabitica() || forceClassMode);
 
   // Container style
@@ -42,13 +42,13 @@ const HabiticaAvatar: React.FC<HabiticaAvatarProps> = ({
     avatarStyle.paddingTop = '24.5px';
   }
 
-  if (appearance.background && !ignore.background) {
+  if (background && !ignore.background) {
     if (useClassMode) {
       avatarStyle.background = undefined;
       avatarStyle.backgroundImage = undefined;
       avatarStyle.backgroundColor = undefined;
     } else {
-      avatarStyle.backgroundImage = `url("${findS3Src('background_' + appearance.background)}")`;
+      avatarStyle.backgroundImage = `url("${findS3Src('background_' + background)}")`;
     }
   }
 
@@ -60,7 +60,7 @@ const HabiticaAvatar: React.FC<HabiticaAvatarProps> = ({
   };
 
   return (
-    <div style={avatarStyle} className={useClassMode && appearance.background && !ignore.background ? `background_${appearance.background}` : undefined}>
+    <div style={avatarStyle} className={useClassMode && background && !ignore.background ? `background_${background}` : undefined}>
       <div style={characterSpritesStyle}>
         {CHARACTER_SPRITE_NODES.map((config, idx) => (
           <Layer

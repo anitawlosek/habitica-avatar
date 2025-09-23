@@ -1,4 +1,5 @@
 // @vitest-environment jsdom
+// @ts-nocheck
 import React from 'react';
 import { render } from '@testing-library/react';
 import Layer from '../Layer';
