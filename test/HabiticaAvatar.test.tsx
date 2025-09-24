@@ -3,8 +3,9 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import HabiticaAvatar from '../HabiticaAvatar';
 import { describe, it, expect } from 'vitest';
+import { User } from '../types/User';
 
-const baseUser = {
+const baseUser: User = {
   items: {
     currentMount: 'Wolf-Ghost',
     currentPet: 'BearCub-Ghost',
@@ -48,7 +49,12 @@ const baseUser = {
     size: 'broad',
   },
   stats: {
-    buffs: {},
+    buffs: {
+      snowball: false,
+      spookySparkles: false,
+      shinySeed: false,
+      seafoam: false
+    },
     class: 'wizard',
   },
 };
