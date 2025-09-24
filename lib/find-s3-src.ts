@@ -14,9 +14,14 @@ const GIFS: Record<string, boolean> = [
   'background_airship',
   'background_clocktower',
   'background_steamworks',
+  'back_special_heroicAureole',
+  'weapon_special_ks2019',
+  'armor_special_ks2019',
+  'head_special_ks2019',
+  'shield_special_ks2019'
 ].reduce((obj, value) => {
   obj[value] = true;
-  
+
   return obj;
 }, {} as Record<string, boolean>);
 
