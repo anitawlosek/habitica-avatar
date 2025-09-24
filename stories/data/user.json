@@ -18,7 +18,16 @@
   },
   "items": {
     "gear": {
-      "equipped": {},
+      "equipped": {
+          "weapon": "weapon_wizard_0",
+          "armor": "armor_wizard_1",
+          "head": "head_wizard_1",
+          "shield": "shield_base_0",
+          "back": "back_base_0",
+          "headAccessory": "headAccessory_base_0",
+          "eyewear": "eyewear_base_0",
+          "body": "body_base_0"
+      },
       "costume": {
           "weapon": "weapon_base_0",
           "armor": "armor_armoire_swanDancerTutu",
