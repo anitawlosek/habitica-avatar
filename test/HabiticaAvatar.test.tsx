@@ -66,13 +66,6 @@ describe('HabiticaAvatar React', () => {
     expect(avatarDiv.style.paddingTop).toBe('24.5px');
   });
 
-  it('applies extra padding if user has mount but ignore.mount is set', () => {
-    const user = { ...baseUser, items: { ...baseUser.items, currentMount: 'Wolf-Base' } };
-    const { container } = render(<HabiticaAvatar user={user} ignore={{ mount: true }} />);
-    const avatarDiv = container.firstChild as HTMLElement;
-    expect(avatarDiv.style.paddingTop).toBe('24.5px');
-  });
-
   it('does not apply extra padding if user has mount', () => {
     const user = { ...baseUser, items: { ...baseUser.items, currentMount: 'Wolf-Base' } };
     const { container } = render(<HabiticaAvatar user={user} />);
@@ -85,13 +78,6 @@ describe('HabiticaAvatar React', () => {
     const { container } = render(<HabiticaAvatar user={user} />);
     const avatarDiv = container.firstChild as HTMLElement;
     expect(avatarDiv.style.backgroundImage).toContain('background_fake-background');
-  });
-
-  it('does not apply background if ignore.background is set', () => {
-    const user = { ...baseUser, preferences: { ...baseUser.preferences, background: 'fake-background' } };
-    const { container } = render(<HabiticaAvatar user={user} ignore={{ background: true }} />);
-    const avatarDiv = container.firstChild as HTMLElement;
-    expect(avatarDiv.style.backgroundImage).toBe('');
   });
 
   it('does not apply background if user does not have one', () => {

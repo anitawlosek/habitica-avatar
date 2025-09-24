@@ -4,6 +4,7 @@ import HabiticaAvatar from '../HabiticaAvatar';
 
 import user from './data/user.json';
 import minimalUser from './data/minimalUser.json';
+//import gifEquipmentUser from './data/gifEquipmentUser.json';
 
 const meta: Meta<typeof HabiticaAvatar> = {
   title: 'HabiticaAvatar',
@@ -21,27 +22,38 @@ export const Default: Story = {
   },
 };
 
+export const SleepingUser: Story = {
+  args: {
+    user: {
+      ...user,
+      preferences: {
+        ...user.preferences,
+        sleep: true,
+      },
+    },
+  },
+};
+
+export const WithGear: Story = {
+  args: {
+    user: {
+      ...user,
+      preferences: {
+        ...user.preferences,
+        costume: false,
+      },
+    },
+  },
+};
+
 export const Empty: Story = {
   args: {
     user: minimalUser,
   },
 };
 
-export const WithCostume: Story = {
-  args: {
-    user: {
-      ...user,
-      preferences: {
-        ...user.preferences,
-        costume: true,
-      },
-    },
-  },
-};
-
-export const ForceImageMode: Story = {
-  args: {
-    user,
-    forceImageMode: true,
-  },
-};
+// export const WithGifEquipment: Story = {
+//   args: {
+//     user: gifEquipmentUser,
+//   },
+// };

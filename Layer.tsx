@@ -10,22 +10,14 @@ import { CharacterSpriteConfig } from './lib/character-sprites-config';
 interface LayerProps {
   config: CharacterSpriteConfig;
   user: User;
-  ignore?: Record<string, boolean>;
-  useClassMode?: boolean;
-  forceEquipment?: boolean;
-  forceCostume?: boolean;
 }
 
-const Layer: React.FC<LayerProps> = ({ config, user, ignore = {}, useClassMode, forceEquipment, forceCostume }) => {
+const Layer: React.FC<LayerProps> = ({ config, user }) => {
   const appearance = user.preferences;
   const gear = user.items.gear;
   const visualBuff = findVisualBuff(user);
 
-  if (ignore[config.name]) {
-    return null;
-  }
-
-  if (visualBuff && !config.showWhenVisualBuffApplied && !ignore.visualBuff) {
+  if (visualBuff && !config.showWhenVisualBuffApplied) {
     return null;
   }
 
@@ -40,16 +32,16 @@ const Layer: React.FC<LayerProps> = ({ config, user, ignore = {}, useClassMode, 
       s3Key = config.name;
       break;
     case 'equipment':
-      if ((appearance.costume && !forceEquipment) || forceCostume) {
+      if (appearance.costume) {
         s3Key = formatEquipmentImg(gear.costume[config.name], { style });
       } else {
         s3Key = formatEquipmentImg(gear.equipped[config.name], { style });
       }
+
       break;
     case 'appearance':
       const configName = config.name as keyof User['preferences'];
       s3Key = formatAppearanceImg(configName, {
-        ignore,
         subName: config.subName,
         appearance,
       });
@@ -73,11 +65,7 @@ const Layer: React.FC<LayerProps> = ({ config, user, ignore = {}, useClassMode, 
     s3Key = appearance.size + '_' + s3Key;
   }
 
-  if (useClassMode) {
-    return <div className={s3Key} style={style} />;
-  } else {
-    return <img src={findS3Src(s3Key)} style={style} alt={config.name} />;
-  }
+  return <img src={findS3Src(s3Key)} style={style} alt={config.name} />;
 };
 
 export default Layer;

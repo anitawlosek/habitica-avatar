@@ -38,15 +38,6 @@ describe('Layer React', () => {
     expect(img?.src).toContain('Mount_Head_Wolf-Base');
   });
 
-  it('does not render if ignore key is set', () => {
-    const config = {
-      name: 'mount',
-      itemsKey: 'currentMount',
-    };
-    const { container } = render(<Layer config={config} user={baseUser} ignore={{ mount: true }} />);
-    expect(container.firstChild).toBeNull();
-  });
-
   it('does not render if no s3Key', () => {
     const config = {
       name: 'mount',
@@ -54,17 +45,5 @@ describe('Layer React', () => {
     };
     const { container } = render(<Layer config={config} user={baseUser} />);
     expect(container.firstChild).toBeNull();
-  });
-
-  it('renders a div with className in class mode', () => {
-    const config = {
-      name: 'mount',
-      itemsKey: 'currentMount',
-      prefix: 'Mount_Head_',
-    };
-    const { container } = render(<Layer config={config} user={baseUser} useClassMode />);
-    const div = container.querySelector('div');
-    expect(div).toBeTruthy();
-    expect(div?.className).toContain('Mount_Head_Wolf-Base');
   });
 });

@@ -4,14 +4,12 @@ import { isDefined } from "./helpers";
 interface Config {
   subName?: keyof User['preferences']['hair'];
   appearance: User['preferences'];
-  ignore?: Record<string, boolean>;
 }
 
 export default function formatAppearanceImg(name: keyof User['preferences'], config: Config): string | undefined {
   let s3Key: string | number | undefined;
   const subName = config.subName;
   const appearance = config.appearance;
-  const ignore = config.ignore || {};
 
   switch (name) {
     case 'hair':
@@ -31,7 +29,7 @@ export default function formatAppearanceImg(name: keyof User['preferences'], con
     case 'skin':
       s3Key = appearance.skin;
 
-      if (appearance.sleep && !ignore.sleep) {
+      if (appearance.sleep) {
         s3Key = s3Key + '_sleep';
       }
       break;

@@ -25,18 +25,6 @@ describe('formatAppearance', () => {
     expect(name).toBe('bar_sleep');
   });
 
-  it('does not change skin if ignore sleep is used', () => {
-    const name = formatAppearance('skin', {
-      ignore: { sleep: true },
-      appearance: {
-        sleep: true,
-        skin: 'bar',
-        hair: {},
-      },
-    });
-    expect(name).toBe('bar');
-  });
-
   it('uses zzz key for sleep node', () => {
     const name = formatAppearance('sleep', {
       appearance: {
